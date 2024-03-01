@@ -17,5 +17,5 @@ public class ExceptionMessages {
 
     public static final String DEAL_CANNOT_BE_NULL = "Deal cannot be null!";
 
-    public static final String DEAL_NOT_FOUND_EXCEPTION = "Deal With given id is not found!";
+    public static final String DEAL_ALREADY_EXIST_EXCEPTION = "Deal already exist exception!";
 }

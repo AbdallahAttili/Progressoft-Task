@@ -7,6 +7,7 @@ import com.fxDeals.progresSoft.progresSoftApplication.dao.DealRepository;
 import com.fxDeals.progresSoft.progresSoftApplication.entity.CurrencyExchangeRate;
 import com.fxDeals.progresSoft.progresSoftApplication.entity.CurrencyExchangeRatePK;
 import com.fxDeals.progresSoft.progresSoftApplication.entity.Deal;
+import com.fxDeals.progresSoft.progresSoftApplication.exception.DealAlreadyExistException;
 import com.fxDeals.progresSoft.progresSoftApplication.exception.DealNotFoundException;
 import com.fxDeals.progresSoft.progresSoftApplication.exception.InvalidCurrencyExchangeRateException;
 import com.fxDeals.progresSoft.progresSoftApplication.exception.InvalidDealDetailsException;
@@ -19,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.fxDeals.progresSoft.progresSoftApplication.constant.ExceptionMessages.DEAL_NOT_FOUND;
-import static com.fxDeals.progresSoft.progresSoftApplication.constant.ExceptionMessages.NO_MATCHED_CURRENCY_EXCHANGE_RATE;
+import static com.fxDeals.progresSoft.progresSoftApplication.constant.ExceptionMessages.*;
 
 /**
  * Service implementation for managing deals.
@@ -58,6 +58,10 @@ public class DealServiceImpl implements DealService {
 
         if (validationResult.isPresent()) {
             throw new InvalidDealDetailsException(validationResult.get().getMessage());
+        }
+
+        if (dealRepository.existsById(newDeal.getDealId())) {
+            throw new DealAlreadyExistException(DEAL_ALREADY_EXIST_EXCEPTION);
         }
 
         Double exchangeRate = getExchangeRate(newDeal.getFromCurrencyIsoCode(), newDeal.getToCurrencyIsoCode());

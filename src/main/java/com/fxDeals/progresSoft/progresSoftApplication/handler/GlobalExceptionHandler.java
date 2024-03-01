@@ -1,5 +1,6 @@
 package com.fxDeals.progresSoft.progresSoftApplication.handler;
 
+import com.fxDeals.progresSoft.progresSoftApplication.exception.DealAlreadyExistException;
 import com.fxDeals.progresSoft.progresSoftApplication.exception.DealNotFoundException;
 import com.fxDeals.progresSoft.progresSoftApplication.exception.InvalidDealDetailsException;
 import com.fxDeals.progresSoft.progresSoftApplication.pojo.ErrorDetails;
@@ -45,13 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return this.handleExceptionInternal(ex, errorDetails, headers, errorDetails.getStatus(), request);
     }
 
-    @ExceptionHandler(DealNotFoundException.class)
-    protected ErrorDetails handleDealNotFoundException(DealNotFoundException ex) {
-        return new ErrorDetails(HttpStatus.NOT_FOUND, ex.getMessage(), null);
-    }
-
-    @ExceptionHandler(InvalidDealDetailsException.class)
-    protected ErrorDetails handleInvalidDealDetailsException(InvalidDealDetailsException ex) {
+    @ExceptionHandler({DealNotFoundException.class, InvalidDealDetailsException.class, DealAlreadyExistException.class})
+    protected ErrorDetails handleDealExceptions(DealNotFoundException ex) {
         return new ErrorDetails(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 }

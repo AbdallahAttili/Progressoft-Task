@@ -62,7 +62,7 @@ The Deals Management System is designed to streamline the process of adding and 
 
 ### Usage
 
-- **Add a Deal**: Send a POST request to `/deals/add` with the deal information in JSON format.
+- **Add a Deal**: Send a POST request to `/deals/add-deals` with the deal information in JSON format.
 
   ```json
   {
@@ -74,7 +74,8 @@ The Deals Management System is designed to streamline the process of adding and 
   }
   ```
 
-- **View Deals**: Access `/deals` to view all deals in the system.
+- **View Deal by Id**: Access `/deals/{dealId}` to view all deals in the system.
+- **View Deals**: Access `/deals/list` to view all deals in the system.
 
 ## Contributing
 
